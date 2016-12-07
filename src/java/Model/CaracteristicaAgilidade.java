@@ -9,16 +9,22 @@ import java.io.Serializable;
 
 /**
  *
- * @author Marco AntÃ´nio
+ * @author Marco Antônio
  */
 public class CaracteristicaAgilidade implements Serializable
 {
     private int id;
-    private String nome;    
+    private String nome;  
+    private String descricao;  
+    private double pertinencia;
+    private double relevancia;
     
     public CaracteristicaAgilidade() 
     {
         this.nome = "";
+        this.descricao = "";
+        this.pertinencia = 0.00;
+        this.relevancia = 0.00;
     }
     
     public int getId() 
@@ -40,5 +46,30 @@ public class CaracteristicaAgilidade implements Serializable
     {
         this.nome = nome;
     }
+    
+    public String getDescricao() 
+    {
+        return descricao;
+    }
 
+    public void setDescricao(String descricao) 
+    {
+        this.descricao = descricao;
+    }
+
+    public double getPertinencia() {
+        return pertinencia;
+    }
+
+    public void setPertinencia(double pertinencia) {
+        this.pertinencia = pertinencia;
+    }
+
+    public double getRelevancia() {
+        return relevancia;
+    }
+
+    public void setRelevancia(double relevancia) {
+        this.relevancia = relevancia;
+    }
 }

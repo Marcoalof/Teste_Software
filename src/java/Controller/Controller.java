@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Marco AntÃ´nio
+ * @author Marco Antônio
  */
 public class Controller extends HttpServlet 
 {

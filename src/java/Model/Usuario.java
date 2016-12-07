@@ -5,19 +5,25 @@
  */
 package Model;
 
-import javax.faces.bean.ManagedBean;
+import java.io.Serializable;
 
 
 /**
  *
- * @author Marco AntÃ´nio
+ * @author Marco Antônio
  */
-@ManagedBean(name = "Usuario", eager = true)
-public class Usuario 
+public class Usuario implements Serializable
 {
     private String nome;
     private String senha;
     private String email;
+    
+    public Usuario() 
+    {
+        this.nome = "";
+        this.senha = "";
+        this.email = "";
+    }
     
     public Usuario(String nome, String senha, String email) 
     {

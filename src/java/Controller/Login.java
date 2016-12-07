@@ -17,13 +17,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 /**
  *
- * @author Marco Ant√¥nio
+ * @author Marco AntÙnio
  */
 
 //@RequestMapping("/Login")
-@ManagedBean(name = "Login", eager = true)
+@ManagedBean(name = "LoginJava", eager = true)
 public class Login extends HttpServlet {
 
     /**
@@ -40,18 +41,18 @@ public class Login extends HttpServlet {
         String acao = request.getParameter("acao");
         String retorno = "";
         response.setContentType("text/plain");
-        response.setCharacterEncoding("UTF-8");
-        if(acao.equals("teste"))
-        {
-            response.getWriter().write("teste");
-        }
-        else if(acao.equals("entrar"))
+        response.setCharacterEncoding("iso-8859-1");
+        if(acao.equals("entrar"))
         {
             String usuario = request.getParameter("usuario");
             String senha = request.getParameter("senha");
             try 
             {
                 retorno = UsuarioDAO.getInstance().logar(usuario, senha);
+                if(retorno == "logar")
+                {
+                    request.getSession().setAttribute("UsuarioLogado", UsuarioDAO.getInstance().usuarioLogado(usuario, senha));
+                }
             } 
             catch (SQLException ex) 
             {
@@ -68,9 +69,37 @@ public class Login extends HttpServlet {
             retorno = UsuarioDAO.getInstance().save(usua);
             response.getWriter().write(retorno);
         }
+        else if(acao.equals("redefinirSenha"))
+        {
+            String usuario = request.getParameter("usuario");
+            String email = request.getParameter("email");
+            Usuario u = new Usuario(usuario, "", email);
+            try 
+            {
+                Boolean resultado = UsuarioDAO.getInstance().usuarioExiste(u);
+                if(resultado == true)
+                {
+                    retorno = "Usu·rio localizado";
+                }
+                else
+                {
+                    retorno = "Usu·rio e email informado n„o foi localizado";
+                }
+            } 
+            catch (Exception ex) 
+            {
+                retorno = "Erro ao processar registro";
+            }
+            response.getWriter().write(retorno);
+        }
+        else if(acao.equals("sair"))
+        {
+            request.getSession().invalidate();
+            response.getWriter().write("sair");
+        }
         else
         {
-            response.getWriter().write("A√ß√£o n√£o identificada.");
+            response.getWriter().write("AÁ„o n„o identificada.");
         }
 
     }

@@ -1,5 +1,5 @@
 
-/*A classe DatabaseLocator implementa o padr√£o Singleton*/
+/*A classe DatabaseLocator implementa o padr„o Singleton*/
 
 package Persistence;
 
@@ -20,7 +20,7 @@ public class DatabaseLocator {
         return instance;
     }
   
-    /* Cria uma nova inst√¢ncia de DatabaseLocator */
+    /* Cria uma nova inst‚ncia de DatabaseLocator */
     private DatabaseLocator() {}
   
     public Connection getConnection() throws SQLException, ClassNotFoundException

@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javax.faces.bean.ManagedBean;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -17,13 +18,14 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Marco Ant√¥nio
+ * @author Marco AntÙnio
  */
+@ManagedBean(name = "UsuarioDAO", eager = true)
 public class UsuarioDAO 
 {
     private static UsuarioDAO instance = new UsuarioDAO();
     
-    /* Cria uma nova inst√¢ncia de ClienteDAO */
+    /* Cria uma nova inst‚ncia de ClienteDAO */
     private UsuarioDAO(){}
     
     public static UsuarioDAO getInstance() {
@@ -41,19 +43,19 @@ public class UsuarioDAO
             st = conn.createStatement();
             if(usuarioExiste(usua))
             {
-                retorno = "Usu√°rio j√° cadastrado";
+                retorno = "Usu·rio j· cadastrado";
                 return retorno;
             }
             else
             {
                 st.execute("insert into opteste.usuario (nome, senha, email)" + " values ('" + usua.getNome() + "','" + usua.getSenha() + "','" + usua.getEmail() + "')");
-                retorno = "Usu√°rio cadastrado com sucesso";
+                retorno = "Usu·rio cadastrado com sucesso";
                 return retorno;
             }
         }
         catch(Exception e) 
         {
-            retorno = "Erro ao tentar cadastrar novo Usu√°rio";
+            retorno = "Erro ao tentar cadastrar novo Usu·rio";
             return retorno;
         }
         finally 
@@ -127,7 +129,7 @@ public class UsuarioDAO
 
                 return "logar";                
             }                       
-            return "Usu√°rio e/ou Senha incorretos";
+            return "Usu·rio e/ou Senha incorretos";
 
         }
         catch(Exception e) 
@@ -146,6 +148,69 @@ public class UsuarioDAO
                 conn.close();
 	    } 
 	}
+    }
+    
+    public Usuario usuarioLogado(String nome, String senha) throws SQLException
+    {
+        Connection conn = null;
+        PreparedStatement preparedStatement = null;                
+        
+        String selectTableSQL = "SELECT nome, senha, email FROM opteste.usuario WHERE nome = ? and senha = ?";
+        try 
+        {            
+            conn = DatabaseLocator.getInstance().getConnection();
+            
+            preparedStatement = conn.prepareStatement(selectTableSQL);
+            preparedStatement.setString(1, nome);
+            preparedStatement.setString(2, senha);
+            
+            ResultSet rs = preparedStatement.executeQuery();
+            Usuario u = null;            
+            while (rs.next() == true) 
+            {                                
+                u = new Usuario(rs.getString("nome"), rs.getString("senha"), rs.getString("email"));               
+
+                return u;                
+            }                       
+            return u;
+
+        }
+        catch(Exception e) 
+        {
+            return null;
+        }
+        finally 
+        {
+            if (preparedStatement != null) 
+            {
+                preparedStatement.close();
+	    }
+            
+            if (conn != null) 
+            {
+                conn.close();
+	    } 
+	}
+    }
+    
+    public void update(Usuario usuarioLogado, Usuario usuarioNovo) throws SQLException, ClassNotFoundException
+    {
+        Connection conn = null;
+        Statement st  = null;
+        try 
+        {
+            conn = DatabaseLocator.getInstance().getConnection();
+            st = conn.createStatement();
+            st.execute("update opteste.usuario set senha = '" + usuarioNovo.getSenha() + "', email = '" + usuarioNovo.getEmail()+ "' where nome = '" + usuarioLogado.getNome()+ "'");
+        }
+        catch(Exception e) 
+        {
+            throw e;
+        }
+        finally 
+        {
+            closeResources(conn, st);
+        }      
     }
     
     public void closeResources(Connection conn, Statement st) {

@@ -1,0 +1,33 @@
+.cadastrosBasicos 
+{
+    width: auto;
+    padding: 20px;
+    border: solid 1px;
+    margin: 2px 2px 2px 2px;
+}
+
+.cadastrosBasicosInserir
+{ 
+    width: auto;
+    margin: 2px 2px 2px 2px;
+    background-color:#fbfbfb;
+    border:1px solid #999;
+    position: absolute;
+    left: 10%;
+    max-width:90%;
+    min-width:50%;
+    padding: 20px;
+}
+.cadastrosBasicosInserir input {
+    height: auto;
+    width: auto;
+    max-width: 50%;
+}
+
+.painelEsquerdo {
+    float: left;
+}
+
+.painelDireito {
+    float: right;
+}

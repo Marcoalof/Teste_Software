@@ -1,0 +1,34 @@
+.esqueciMinhaSenha 
+{
+    
+    width: auto;
+    padding: 20px;
+    border: solid 1px;
+    margin: 40px 2px 2px 2px;
+}
+
+.esqueciMinhaSenhaInserir
+{ 
+    width: auto;
+    margin: 20px 2px 2px 2px;
+    background-color:#fbfbfb;
+    border:1px solid #999;
+    position: absolute;
+    left: 10%;
+    max-width:90%;
+    min-width:50%;
+    padding: 30px;
+}
+.esqueciMinhaSenhaInserir input {
+    height: auto;
+    width: auto;
+    max-width: 50%;
+}
+
+.painelEsquerdo {
+    float: left;
+}
+
+.painelDireito {
+    float: right;
+}
